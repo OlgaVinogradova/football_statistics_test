@@ -6,7 +6,6 @@ import { ArrowDown } from './../svg/arrowDown';
 
 const imgLogo = "./img/logo_liga.png"
 export const LeaguesTable = ({ leaguesInfo, sortBy, directionSort }) => {
-
   const [fieldData, setFieldData] = useState('');
   const [keyData, setKeyData] = useState('');
 
