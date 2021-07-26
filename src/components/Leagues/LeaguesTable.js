@@ -1,8 +1,29 @@
 import React from 'react'
-import './LeaguesTable.css'
+import { useState } from 'react';
+import './LeaguesTable.css';
+import { ArrowUp } from './../svg/arrowUp';
+import { ArrowDown } from './../svg/arrowDown';
 
 const imgLogo = "./img/logo_liga.png"
-export const LeaguesTable = ({ leaguesInfo, sortBy }) => {
+export const LeaguesTable = ({ leaguesInfo, sortBy, directionSort }) => {
+
+  const [fieldData, setFieldData] = useState('');
+  const [keyData, setKeyData] = useState('');
+
+  const Arrow = () => {
+    return (
+      directionSort ? <ArrowDown /> : <ArrowUp />
+    )
+  }
+
+  const dataSortData = (field, key) => {
+    sortBy(field, key)
+    setKeyData(key)
+    setFieldData(field)
+    console.log(key)
+    console.log(field)
+  }
+
 
   return (
     <table className="table">
@@ -10,25 +31,35 @@ export const LeaguesTable = ({ leaguesInfo, sortBy }) => {
         <tr>
           <th scope="col"></th>
           <th scope="col"
-            onClick={() => sortBy("name")}
-          >Competition</th>
+            onClick={() => dataSortData("name")}
+          >
+            Competition {fieldData === "name" ? <Arrow /> : null}
+          </th>
           <th scope="col"
-            onClick={() => sortBy("area.name")}
+            onClick={() => dataSortData("area", "name")}
+          >
+            Area {keyData === "name" ? <Arrow /> : null}
 
-          >Area</th>
-          <th scope="col">Plan</th>
+          </th>
+          <th scope="col">
+            Plan
+            </th>
           <th scope="col"
-            onClick={() => sortBy("currentSeason.startDate")}
-          >Start</th>
+            onClick={() => dataSortData("currentSeason", "startDate")}
+          >
+            Start {keyData === "startDate" ? <Arrow /> : null}
+          </th>
           <th scope="col"
-            onClick={() => sortBy("currentSeason.endDate")}
-          >End</th>
+            onClick={() => dataSortData("currentSeason", "endDate")}
+          >
+            End {keyData === "endDate" ? <Arrow /> : null}
+          </th>
         </tr>
       </thead>
       <tbody>
         {leaguesInfo.map((item) => (
           <tr key={item.id}>
-            <td scope="row">
+            <td>
               <img style={{ height: 25, width: 'auto' }} src={item.emblemUrl == null ? imgLogo : item.emblemUrl} alt='emblem' />
             </td>
             <td>{item.name}</td>

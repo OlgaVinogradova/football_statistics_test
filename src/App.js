@@ -13,29 +13,49 @@ export const App = () => {
   const [isError, setIsError] = useState(false)
   const [directionSort, setDirectionSort] = useState(true)
 
-  const sortBy = (field) => {
+  const sortBy = (field, key) => {
     console.log(field)
     const copyData = leaguesInfo.concat();
     console.log(copyData)
     let sortData;
 
-    if (directionSort) {
-      sortData = copyData.sort(
-        (a, b) => {
-          console.log(a[field])
-          console.log(b[field])
-
-          return a[field] > b[field] ? 1 : -1
-        });
+    if (key) {
+      if (directionSort) {
+        sortData = copyData.sort(
+          (a, b) => {
+            if (!a[field]) {
+              a[field] = { [key]: "" }
+              console.log(a[field])
+              console.log(a)
+            }
+            if (!b[field]) {
+              b[field] = { [key]: "" }
+            }
+            return a[field][key] > b[field][key] ? 1 : -1
+          });
+      } else {
+        sortData = copyData.reverse(
+          (a, b) => {
+            return a[field][key] > b[field][key] ? 1 : -1
+          });
+      }
     } else {
-      sortData = copyData.reverse(
-        (a, b) => {
-          return a[field] > b[field] ? 1 : -1
-        });
+      if (directionSort) {
+        sortData = copyData.sort(
+          (a, b) => {
+            return a[field] > b[field] ? 1 : -1
+          });
+      } else {
+        sortData = copyData.reverse(
+          (a, b) => {
+            return a[field] > b[field] ? 1 : -1
+          });
+      }
     }
     getLeaguesInfo(sortData)
     setDirectionSort(!directionSort)
   }
+
 
   useEffect(() => {
     setTimeout(() => {
@@ -55,8 +75,11 @@ export const App = () => {
 
   return (
     <div className="container">
-      {isLoading ? <Loader /> : isError ? <span>Ошибка</span> : <LeaguesTable leaguesInfo={leaguesInfo}
-        sortBy={sortBy} />}
+      {isLoading ? <Loader /> : isError ? <span>Ошибка</span> : <LeaguesTable
+        leaguesInfo={leaguesInfo}
+        sortBy={sortBy}
+        directionSort={directionSort}
+      />}
     </div>
   );
-};
+}
