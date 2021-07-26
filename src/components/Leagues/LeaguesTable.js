@@ -10,18 +10,18 @@ export const LeaguesTable = ({ leaguesInfo, sortBy }) => {
         <tr>
           <th scope="col"></th>
           <th scope="col"
-            onClick={() => sortBy("Competition")}
+            onClick={() => sortBy("name")}
           >Competition</th>
           <th scope="col"
-            onClick={() => sortBy("Area")}
+            onClick={() => sortBy("area.name")}
 
           >Area</th>
           <th scope="col">Plan</th>
           <th scope="col"
-            onClick={() => sortBy("Start")}
+            onClick={() => sortBy("currentSeason.startDate")}
           >Start</th>
           <th scope="col"
-            onClick={() => sortBy("End")}
+            onClick={() => sortBy("currentSeason.endDate")}
           >End</th>
         </tr>
       </thead>

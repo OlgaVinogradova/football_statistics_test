@@ -16,15 +16,23 @@ export const App = () => {
   const sortBy = (field) => {
     console.log(field)
     const copyData = leaguesInfo.concat();
-
+    console.log(copyData)
     let sortData;
 
     if (directionSort) {
       sortData = copyData.sort(
-        (a, b) => { return a[field] > b[field] ? 1 : -1 });
-    } sortData = copyData.reverse(
-      (a, b) => { return a[field] > b[field] ? 1 : -1 });
+        (a, b) => {
+          console.log(a[field])
+          console.log(b[field])
 
+          return a[field] > b[field] ? 1 : -1
+        });
+    } else {
+      sortData = copyData.reverse(
+        (a, b) => {
+          return a[field] > b[field] ? 1 : -1
+        });
+    }
     getLeaguesInfo(sortData)
     setDirectionSort(!directionSort)
   }
