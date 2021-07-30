@@ -1,10 +1,11 @@
 import React from 'react'
 import { useState } from 'react';
-import './LeaguesTable.css';
 import { ArrowUp } from './../svg/arrowUp';
 import { ArrowDown } from './../svg/arrowDown';
+import './Leagues.css';
 
 const imgLogo = "./img/logo_liga.png"
+
 export const LeaguesTable = ({ leaguesInfo, sortBy, directionSort }) => {
   const [fieldData, setFieldData] = useState('');
   const [keyData, setKeyData] = useState('');
@@ -19,8 +20,6 @@ export const LeaguesTable = ({ leaguesInfo, sortBy, directionSort }) => {
     sortBy(field, key)
     setKeyData(key)
     setFieldData(field)
-    console.log(key)
-    console.log(field)
   }
 
 
@@ -42,7 +41,7 @@ export const LeaguesTable = ({ leaguesInfo, sortBy, directionSort }) => {
           </th>
           <th scope="col">
             Plan
-            </th>
+          </th>
           <th scope="col"
             onClick={() => dataSortData("currentSeason", "startDate")}
           >
