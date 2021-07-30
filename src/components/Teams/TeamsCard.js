@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom'
 import { httpToHttps } from './../typography/url'
-import { Link, makeStyles, Card, Typography, CardMedia, CardActionArea, CardContent, Container } from '@material-ui/core'
+import { makeStyles, Card, Typography, CardMedia, CardActionArea, CardContent, Container } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,32 +29,25 @@ export const TeamsCard = ({ team }) => {
   const classes = useStyles()
 
 
-  const handleClick = () => {
-    history.push({ pathname: `/Teams/${team.id}` })
-  }
-
-
-  // const imgStyle = {
-  //   backgroundImage: "url(" + imgPath + ")",
-  // };
-
   return (
-    <Card className={classes.root} onClick={handleClick}>
-      <CardActionArea>
-        <Container className={classes.mediaContainer}>
-          <CardMedia className={classes.media} image={httpToHttps(team.crestUrl)} title={team.name} />
-        </Container>
-        <CardContent className={classes.content}>
-          <Typography className={classes.title} gutterBottom variant="h5" component="h2">
-            {team.name}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {team.venue}
-          </Typography>
-          <Link href={httpToHttps(team.website)} target="blank">{httpToHttps(team.website)}</Link>
-        </CardContent>
-      </CardActionArea>
-    </Card>
+    <Link to={`/Teams/${team.id}`}>
+      <Card className={classes.root}>
+        <CardActionArea>
+          <Container className={classes.mediaContainer}>
+            <CardMedia className={classes.media} image={httpToHttps(team.crestUrl)} title={team.name} />
+          </Container>
+          <CardContent className={classes.content}>
+            <Typography className={classes.title} gutterBottom variant="h5" component="h2">
+              {team.name}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {team.venue}
+            </Typography>
+            <Link href={httpToHttps(team.website)} target="blank">{httpToHttps(team.website)}</Link>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+    </Link>
   )
 }
 

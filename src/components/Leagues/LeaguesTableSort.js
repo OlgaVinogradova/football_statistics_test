@@ -97,20 +97,20 @@ export const LeaguesTableSort = ({ leaguesInfo, getLeaguesInfo }) => {
       </thead>
       <tbody>
         {leaguesInfo.map((item) => (
+
           <tr key={item.id}>
-            <Link to={`/Leagues/${item.id}` || '#'}>
-              <td>
-                <img style={{ height: 25, width: 'auto' }} src={item.emblemUrl == null ? imgLogo : item.emblemUrl} alt='emblem' />
-              </td>
-              <td>{item.name}</td>
-            </Link>
+
+            <td>
+              <img style={{ height: 25, width: 'auto' }} src={item.emblemUrl == null ? imgLogo : item.emblemUrl} alt='emblem' />
+            </td>
+            <td> <Link to={`/Leagues/${item.id}`}>{item.name}</Link></td>
+
             <td>{item.area.name}</td>
             <td>{item.plan && (item.plan).toLowerCase()}</td>
             <td>{item.currentSeason?.startDate && new Date(item.currentSeason.startDate).toLocaleDateString()}</td>
             <td>{item.currentSeason?.endDate && new Date(item.currentSeason.endDate).toLocaleDateString()}</td>
           </tr>
         ))}
-
       </tbody>
     </table >
   )

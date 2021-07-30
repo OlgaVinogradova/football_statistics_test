@@ -2,10 +2,10 @@ import React from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { Leagues } from './components/Leagues/Leagues';
 import { Teams } from './components/Teams/Teams';
-import { Team } from './components/Teams/Team';
 import { Navigation } from './components/Navigation/Navigation';
 import './App.css'
 import { ScheduleLeagues } from './components/Leagues/ScheduleLeagues';
+import { ScheduleTeam } from './components/Teams/ScheduleTeam'
 
 export const App = () => {
   return (
@@ -17,8 +17,8 @@ export const App = () => {
         <div className='content'>
           <Switch>
             <Route path='/' exact component={Leagues} />
-            <Route path='/teams' component={Teams} />
-            <Route path='/teams/:id' component={Team} />
+            <Route path='/Teams' component={Teams} />
+            <Route path='/Teams/:id' component={ScheduleTeam} />
             <Route path='/Leagues/:id' component={ScheduleLeagues} />
           </Switch>
         </div>
