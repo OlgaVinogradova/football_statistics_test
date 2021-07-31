@@ -9,8 +9,8 @@ import './Leagues.css';
 export const ScheduleLeagues = (props) => {
 
   const { id } = props.match.params
-  const [{ data, isLoading, isError }] = useFetch([`https://api.football-data.org/v2/competitions/${id}/matches`])
-  const [scheduleInfo, getScheduleInfo] = useState([null]);
+  const [{ data, isLoading, isError }] = useFetch(`https://api.football-data.org/v2/competitions/${id}/matches`)
+  const [scheduleInfo, getScheduleInfo] = useState([]);
 
   const leaguesName = scheduleInfo.competition?.name && scheduleInfo.competition.name
   const leaguesSchudlue = scheduleInfo?.matches && scheduleInfo.matches

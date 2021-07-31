@@ -17,20 +17,12 @@ export const App = () => {
         <div className='content'>
           <Switch>
             <Route path='/' exact component={Leagues} />
-            <Route path='/Teams' component={Teams} />
-            <Route path='/Teams/:id' component={ScheduleTeam} />
             <Route path='/Leagues/:id' component={ScheduleLeagues} />
+            <Route path='/Teams' exact component={Teams} />
+            <Route path='/Teams/:id' component={ScheduleTeam} />
           </Switch>
         </div>
       </Router>
     </div>
   );
-
-}
-
-  // `https://data.football-api.com/v3/competitions/${props.match.params.id}?
-
-  // https://api.football-data.org/v2/competitions/${league}/matches`
-
-  // https://api.football-data.org/v2/competitions/${id}/standings
-
+};

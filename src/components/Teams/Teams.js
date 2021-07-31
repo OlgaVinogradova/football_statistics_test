@@ -1,31 +1,19 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { LINKS } from '../api/links';
 import { TeamsCard } from './TeamsCard';
 import { Loader } from '../Loader/Loader';
-import { makeStyles, Container } from '@material-ui/core'
 import { useFetch } from '../api/useFetch';
-import { Team } from './Team';
+import { ObjectToQueryString } from '../typography/url'
+import * as queryString from 'querystring';
+import { Search } from '../Search/Search';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    '& > *': {
-      margin: theme.spacing(2)
-    }
-  },
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'center'
-  }
-}))
+import './Teams.css';
 
 export const Teams = () => {
+  const history = useHistory()
 
-  const classes = useStyles()
   const [{ data, isLoading, isError }] = useFetch(LINKS.TEAMS_LINK)
 
   const [teamsInfo, getTeamsInfo] = useState([]);
@@ -33,24 +21,41 @@ export const Teams = () => {
   useEffect(() => {
     if (data) {
       getTeamsInfo(data.teams)
-      // applyFilters()
-    }
+      applyFilters()
+    };
   }, [data])
   console.log(teamsInfo)
 
+
+  const applyFilters = () => {
+    const parsed = queryString.parse(history.location.search.substr(1))
+    let teamArry = data.competitions
+    if (parsed.search !== undefined) {
+      const searchTerm = String(parsed.search).toLowerCase()
+      teamArry = teamArry.filter((team) => {
+        return (
+          team.name.toLowerCase().includes(searchTerm)
+        )
+      })
+    }
+
+    getTeamsInfo(teamArry)
+  }
+
+  const onFilterSubmit = (obj) => {
+    const parsed = { ...queryString.parse(history.location.search.substr(1)), ...obj }
+    history.push({
+      search: ObjectToQueryString(parsed)
+    })
+    applyFilters()
+  };
+
   return (
-    <Container className={classes.container}>
-      {isLoading ? <Loader /> : isError ? <span>Ошибка</span> :
-        <div className={classes.root}>
-          {teamsInfo.map((team) => (
-            <TeamsCard key={team.id}
-              team={team}
-              teamsInfo={teamsInfo}
-            />
-          ))}
-          <Team />
-        </div>
+    <div className='contentBox'>
+      <Search onFilterSubmit={onFilterSubmit} />
+      {isLoading ? <Loader /> : isError ? <span>Ошибка</span> : <TeamsCard teamsInfo={teamsInfo}
+      />
       }
-    </Container>
+    </div>
   );
 }

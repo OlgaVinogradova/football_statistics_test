@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import { People } from '../svg/people';
 import { Trophy } from '../svg/trophy';
+import { Home } from '../svg/home';
 import './Navigation.css';
 
 export const Navigation = () => {

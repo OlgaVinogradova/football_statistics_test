@@ -1,53 +1,32 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { useHistory } from 'react-router-dom'
-import { httpToHttps } from './../typography/url'
-import { makeStyles, Card, Typography, CardMedia, CardActionArea, CardContent, Container } from '@material-ui/core'
+import { Link, useRouteMatch } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import './Teams.css';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: 250
-  },
-  mediaContainer: {
-    padding: theme.spacing(2)
-  },
-  media: {
-    backgroundSize: '100% 100%',
-    height: 200
-  },
-  content: {
-    height: 150,
-    wordBreak: 'break-word'
-  },
-  title: {
-    minHeight: 60
-  }
-}))
-
-export const TeamsCard = ({ team }) => {
+export const TeamsCard = ({ teamsInfo }) => {
   const history = useHistory()
-  const classes = useStyles()
+  let { path, url } = useRouteMatch();
 
 
   return (
-    <Link to={`/Teams/${team.id}`}>
-      <Card className={classes.root}>
-        <CardActionArea>
-          <Container className={classes.mediaContainer}>
-            <CardMedia className={classes.media} image={httpToHttps(team.crestUrl)} title={team.name} />
-          </Container>
-          <CardContent className={classes.content}>
-            <Typography className={classes.title} gutterBottom variant="h5" component="h2">
-              {team.name}
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              {team.venue}
-            </Typography>
-            <Link href={httpToHttps(team.website)} target="blank">{httpToHttps(team.website)}</Link>
-          </CardContent>
-        </CardActionArea>
-      </Card>
-    </Link>
+    <div className='contentCard'>
+      {teamsInfo.map((team) => (
+        <div key={team.id} >
+          <Link to={`/Teams/${team.id}`}>
+            <div className='card'>
+              <img className='card_img' src={team.crestUrl} alt={team.name} />
+              <div className='card_content'>
+                <div className='name'>
+                  {team.name}
+                </div>
+                <div className='name_small'>
+                  {team.venue}
+                </div>
+              </div>
+            </div>
+          </Link>
+        </div>))}
+    </div>
   )
 }
 

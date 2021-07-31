@@ -113,6 +113,5 @@ export const LeaguesTableSort = ({ leaguesInfo, getLeaguesInfo }) => {
         ))}
       </tbody>
     </table >
-  )
-}
-
+  );
+};

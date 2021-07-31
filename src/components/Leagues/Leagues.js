@@ -1,16 +1,16 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
 import { LINKS } from '../api/links';
 import { LeaguesTableSort } from './LeaguesTableSort';
 import { Loader } from '../Loader/Loader';
 import { useFetch } from '../api/useFetch';
 import { DateFilter } from '../DateFilter';
-import { ObjectToQueryString } from '../typography/url'
-import * as queryString from 'querystring'
-import './Leagues.css';
-
+import { ObjectToQueryString } from '../typography/url';
+import * as queryString from 'querystring';
 import { Search } from '../Search/Search';
+import { LeaguesFree } from './LeaguesFree';
+import './Leagues.css';
 
 
 export const Leagues = () => {
@@ -18,7 +18,6 @@ export const Leagues = () => {
 
   const [{ data, isLoading, isError }] = useFetch(LINKS.COMPETITIONS_LINK)
   const [leaguesInfo, getLeaguesInfo] = useState([]);
-  // const [rowItem, setRowItem] = useState('');
 
   useEffect(() => {
     if (data) {
@@ -60,25 +59,16 @@ export const Leagues = () => {
       search: ObjectToQueryString(parsed)
     })
     applyFilters()
-  }
-
-  // const standingsData = (row) => {
-  //   setRowItem(row)
-  // }
-
+  };
   return (
     <div className='contentBox'>
-      {/* <Standings
-        standingItemData={rowItem}
-      /> */}
+
       <DateFilter onFilterSubmit={onFilterSubmit} />
       <Search onFilterSubmit={onFilterSubmit} />
       {isLoading ? <Loader /> : isError ? <span>Ошибка</span> : <LeaguesTableSort
         leaguesInfo={leaguesInfo}
         getLeaguesInfo={getLeaguesInfo}
-      // standingsData={standingsData}
-
-      />}
+      />};
 
     </div>
   );
