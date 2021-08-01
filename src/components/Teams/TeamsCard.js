@@ -1,15 +1,13 @@
 import React from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { Search } from '../Search/Search';
 import './Teams.css';
 
-export const TeamsCard = ({ teamsInfo }) => {
-  const history = useHistory()
-  let { path, url } = useRouteMatch();
-
+export const TeamsCard = ({ teamsInfo, onFilterSubmit }) => {
 
   return (
     <div className='contentCard'>
+      <Search onFilterSubmit={onFilterSubmit} />
       {teamsInfo.map((team) => (
         <div key={team.id} >
           <Link to={`/Teams/${team.id}`}>

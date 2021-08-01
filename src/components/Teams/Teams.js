@@ -20,42 +20,16 @@ export const Teams = () => {
 
   useEffect(() => {
     if (data) {
-      getTeamsInfo(data.teams)
-      applyFilters()
-    };
-  }, [data])
-  console.log(teamsInfo)
-
-
-  const applyFilters = () => {
-    const parsed = queryString.parse(history.location.search.substr(1))
-    let teamArry = data.competitions
-    if (parsed.search !== undefined) {
-      const searchTerm = String(parsed.search).toLowerCase()
-      teamArry = teamArry.filter((team) => {
-        return (
-          team.name.toLowerCase().includes(searchTerm)
-        )
-      })
+      getTeamsInfo(data.teams);
     }
 
-    getTeamsInfo(teamArry)
-  }
-
-  const onFilterSubmit = (obj) => {
-    const parsed = { ...queryString.parse(history.location.search.substr(1)), ...obj }
-    history.push({
-      search: ObjectToQueryString(parsed)
-    })
-    applyFilters()
-  };
+  }, [data]);
 
   return (
     <div className='contentBox'>
-      <Search onFilterSubmit={onFilterSubmit} />
+
       {isLoading ? <Loader /> : isError ? <span>Ошибка</span> : <TeamsCard teamsInfo={teamsInfo}
-      />
-      }
+      />}
     </div>
   );
 }

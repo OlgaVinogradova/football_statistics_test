@@ -1,16 +1,16 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom'
 import { Loader } from '../Loader/Loader';
 import { useFetch } from '../api/useFetch';
 import { PageTitle } from '../typography/PageTitle'
 import './Leagues.css';
-import { Free } from './Free';
 
 
-export const ScheduleLeagues = (props) => {
+export const Schedule = (props) => {
 
-  const { id } = props.match.params
+  const id = props.shItem
+
   const [{ data, isLoading, isError }] = useFetch(`https://api.football-data.org/v2/competitions/${id}/matches`)
   const [scheduleInfo, getScheduleInfo] = useState([]);
 
@@ -23,15 +23,15 @@ export const ScheduleLeagues = (props) => {
     }
   }, [data])
 
-
+  console.log(id)
   return (
 
-    <div className='content'>
-      <PageTitle>Leagues: {leaguesName}</PageTitle>
-      {isLoading ? <Loader /> :
-        isError ?
 
-          <Link to={'/'} > Sorry, but in the free API currently has no data for this competition. Check: "Serie A", "Premier League", "La Liga", "Bundesliga", "Ligue 1", "Eredivisie"...</Link> :
+    <div div className='content' >
+
+      <PageTitle>Leagues: {leaguesName}</PageTitle>
+      {
+        isLoading ? <Loader /> : isError ? <span>Ошибка</span> :
           <table className="table">
             <thead>
               <tr>
@@ -45,7 +45,6 @@ export const ScheduleLeagues = (props) => {
             <tbody>
               {leaguesSchudlue.map((row) => (
                 <tr key={row.id}>
-
                   <td>{row.utcDate && new Date(row.utcDate).toLocaleString()}</td>
                   <td>{row.status}</td>
                   <td><div>{row.homeTeam?.name && row.homeTeam.name}</div><p> vs </p><div>{row.awayTeam?.name && row.awayTeam.name}</div></td>
@@ -57,6 +56,5 @@ export const ScheduleLeagues = (props) => {
           </table>
       }
     </div>
-
-  );
+  )
 }

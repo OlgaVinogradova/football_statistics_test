@@ -20,6 +20,9 @@ export const Navigation = () => {
           <li className='nav_link'>
             <Link to={'/Teams'} className='link'><People /><span className='nav_text'>Teams</span></Link>
           </li>
+          {/* <li className='nav_link'>
+            <Link to={'/Free'} className='link'><Home /><span className='nav_text'>Free</span></Link>
+          </li> */}
         </ul>
       </nav>
     </nav>

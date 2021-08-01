@@ -9,12 +9,13 @@ import { DateFilter } from '../DateFilter';
 import { ObjectToQueryString } from '../typography/url';
 import * as queryString from 'querystring';
 import { Search } from '../Search/Search';
-import { LeaguesFree } from './LeaguesFree';
 import './Leagues.css';
 
 
 export const Leagues = () => {
   const history = useHistory()
+
+
 
   const [{ data, isLoading, isError }] = useFetch(LINKS.COMPETITIONS_LINK)
   const [leaguesInfo, getLeaguesInfo] = useState([]);
@@ -26,6 +27,7 @@ export const Leagues = () => {
     }
   }, [data])
   console.log(leaguesInfo)
+
 
   const applyFilters = () => {
     const parsed = queryString.parse(history.location.search.substr(1))

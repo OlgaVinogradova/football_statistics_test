@@ -13,7 +13,7 @@ export const ScheduleTeam = (props) => {
 
   useEffect(() => {
     if (data) {
-      getTeamScheduleInfo(data)
+      getTeamScheduleInfo(data.matches)
     }
   }, [data])
   console.log(teamScheduleInfo)
