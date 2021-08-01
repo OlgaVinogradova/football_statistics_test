@@ -1,26 +1,25 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Loader } from '../Loader/Loader';
 import { useFetch } from '../api/useFetch';
 
+export const Schedule = ({ setScheduleParams, scheduleParams, id }) => {
 
-export const ScheduleTeam = (props) => {
 
-  const { id } = props.match.params
   const [{ data, isLoading, isError }] = useFetch(`https://api.football-data.org/v2/teams/${id}/matches`)
 
-  const [teamScheduleInfo, getTeamScheduleInfo] = useState([]);
-
+  const history = useHistory()
   useEffect(() => {
     if (data) {
-      getTeamScheduleInfo(data.matches)
+      setScheduleParams(data.matches)
     }
   }, [data])
-  console.log(teamScheduleInfo)
+
 
   return (
 
-    <div className='content'>
+    <div>
       {isLoading ? <Loader /> : isError ? <span>Ошибка</span> :
         <table className="table">
           <thead>
@@ -33,11 +32,11 @@ export const ScheduleTeam = (props) => {
             </tr>
           </thead>
           <tbody>
-            {teamScheduleInfo.map((row) => (
+            {scheduleParams.map((row) => (
               <tr key={row.id}>
                 <td>{row.utcDate && new Date(row.utcDate).toLocaleString()}</td>
-                <td>{row.status}</td>
-                <td><div>{row.homeTeam?.name && row.homeTeam.name}</div><p> vs </p><div>{row.awayTeam?.name && row.awayTeam.name}</div></td>
+                <td className='name_small'>{row.status}</td>
+                <td><h4>{row.homeTeam?.name && row.homeTeam.name}<span className='name_small'> vs </span>{row.awayTeam?.name && row.awayTeam.name}</h4></td>
                 <td>{row.matchday}</td>
                 <td>{row.score?.winner && row.score.winner}</td>
               </tr>))}

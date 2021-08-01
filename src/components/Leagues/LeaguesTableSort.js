@@ -7,7 +7,6 @@ import './Leagues.css';
 
 const imgLogo = "./img/logo_liga.png"
 
-// export const LeaguesTableSort = ({ leaguesInfo, getLeaguesInfo, standingsData }) => {
 export const LeaguesTableSort = ({ leaguesInfo, getLeaguesInfo }) => {
   const [directionSort, setDirectionSort] = useState(true);
   let { path, url } = useRouteMatch();
@@ -60,9 +59,6 @@ export const LeaguesTableSort = ({ leaguesInfo, getLeaguesInfo }) => {
     getLeaguesInfo(sortData)
     setDirectionSort(!directionSort)
   }
-  // const handleClick = () => {
-  //   history.push({ pathname: `/Leagues/${item.id}` })
-  // }
 
   return (
     <table className="table">
