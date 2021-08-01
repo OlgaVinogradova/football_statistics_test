@@ -6,9 +6,10 @@ import { LeaguesTableSort } from './LeaguesTableSort';
 import { Loader } from '../Loader/Loader';
 import { useFetch } from '../api/useFetch';
 import { DateFilter } from '../DateFilter';
+import { Search } from '../Search/Search';
 import { ObjectToQueryString } from '../typography/url';
 import * as queryString from 'querystring';
-import { Search } from '../Search/Search';
+
 import './Leagues.css';
 
 

@@ -31,12 +31,22 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
+.team_card {
+  margin: 10px;
+  height: 150px;
+  border: 2px solid #9ad3b4;
+  border-radius: 8px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
 .card_img{
-  height: 200px;
+  height: 100px;
   width: auto;
-  max-width: 250px;
+  max-width: 150px;
 }
 
 .card_content {
@@ -55,8 +65,7 @@
 }
 
 .name_small {
-  font-size: 12px;
-  margin: 10px 0;
+  font-size: 14px;
   text-align: center;
   letter-spacing: 1px;
   color: #024820;
@@ -79,7 +88,6 @@
 
 .team_name_small {
   font-size: 12px;
-  margin: 10px 0;
   text-align: center;
   letter-spacing: 1px;
   color: #024820;

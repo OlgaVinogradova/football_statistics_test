@@ -11,6 +11,23 @@ export const LeaguesTableSort = ({ leaguesInfo, getLeaguesInfo }) => {
   const [directionSort, setDirectionSort] = useState(true);
   let { path, url } = useRouteMatch();
 
+  const FreeLeagues = [
+    { id: '1204', name: 'epl' },
+    { id: '1399', name: 'laliga' },
+    { id: '1229', name: 'bundesliga' },
+    { id: '1221', name: 'french ligue1' },
+    { id: '1269', name: 'serie a' },
+    { id: '1322', name: 'holland erdesive' }
+  ];
+
+  const newTable = FreeLeagues.filter(function (v) {
+    return leaguesInfo.some(function (v2) {
+      return v.id == v2.id;
+    }
+    )
+  });
+  console.log(newTable)
+
   const Arrow = () => {
     return (
       directionSort ? <ArrowDown /> : <ArrowUp />
@@ -59,6 +76,9 @@ export const LeaguesTableSort = ({ leaguesInfo, getLeaguesInfo }) => {
     getLeaguesInfo(sortData)
     setDirectionSort(!directionSort)
   }
+  // const handleClick = () => {
+  //   history.push({ pathname: `/Leagues/${item.id}` })
+  // }
 
   return (
     <table className="table">
