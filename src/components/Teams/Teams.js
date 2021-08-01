@@ -21,15 +21,44 @@ export const Teams = () => {
   useEffect(() => {
     if (data) {
       getTeamsInfo(data.teams);
+      applyFilters()
     }
 
   }, [data]);
 
+  const applyFilters = () => {
+    const parsed = queryString.parse(history.location.search.substr(1))
+    let TeamsArea = data.teams
+    if (parsed.search !== undefined) {
+      const searchTerm = String(parsed.search).toUpperCase()
+      TeamsArea = TeamsArea.filter((teams) => {
+        return (
+          teams.name.toUpperCase().includes(searchTerm) ||
+          teams.varue.toUpperCase().includes(searchTerm)
+
+        )
+      })
+    }
+    getTeamsInfo(TeamsArea)
+  }
+
+  const onFilterSubmit = (obj) => {
+    const parsed = { ...queryString.parse(history.location.search.substr(1)), ...obj }
+    history.push({
+      search: ObjectToQueryString(parsed)
+    })
+    applyFilters()
+  };
+
+
   return (
     <div className='contentBox'>
 
-      {isLoading ? <Loader /> : isError ? <span>Ошибка</span> : <TeamsCard teamsInfo={teamsInfo}
-      />}
+      {isLoading ? <Loader /> : isError ? <span>Ошибка</span> :
+        <TeamsCard
+          teamsInfo={teamsInfo}
+          onFilterSubmit={onFilterSubmit}
+        />}
     </div>
   );
 }

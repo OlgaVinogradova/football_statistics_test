@@ -71,7 +71,7 @@ export const Search = ({ onFilterSubmit }) => {
           placeholder="Search…"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          onKeyDown={() => onFilterSubmit({ search })}
+        // onKeyDown={() => onFilterSubmit({ search })}
         />
       </Grid>
       <Grid item xs={3} md={3} lg={2}>
